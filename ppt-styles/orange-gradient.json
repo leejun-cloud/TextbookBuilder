@@ -1,0 +1,53 @@
+{
+  "name": "orange-gradient",
+  "description": "밝은 오렌지 그라데이션 + 흰 카드 + 부드러운 그림자. 에너지 있는 교육 제안서·강의 슬라이드에 어울린다.",
+  "source": "생각이먼저다_제안서_v6.pptx",
+  "palette": {
+    "primary": "FF6A00",
+    "bright": "FF8A00",
+    "accent": "FFC400",
+    "charcoal": "222222",
+    "gray": "777777",
+    "light": "F3F3F3",
+    "white": "FFFFFF",
+    "divider": "E4E4E4",
+    "footer": "AAAAAA",
+    "dark_bg": "1C1C1C",
+    "dark_sub": "D5D5D5"
+  },
+  "gradient": {
+    "main": { "colors": ["FF6A00", "FFC400"], "angle": 0 },
+    "diagonal": { "colors": ["FF6A00", "FFC400"], "angle": 45 },
+    "vertical": { "colors": ["FF8A00", "FFC400"], "angle": 90 },
+    "soft": { "colors": ["FFF3E3", "FFE3B8"], "angle": 0 },
+    "dark": { "colors": ["1C1C1C", "3A2A18"], "angle": 60 }
+  },
+  "font": {
+    "main": "Pretendard",
+    "fallback": "Malgun Gothic",
+    "latin": "Arial"
+  },
+  "type_scale": {
+    "cover_title": 54,
+    "title": 30,
+    "section": 28,
+    "subtitle": 14,
+    "body": 16,
+    "card_head": 18,
+    "card_body": 12,
+    "caption": 11,
+    "kicker": 12,
+    "big_number": 26,
+    "footer": 8.5
+  },
+  "margins": { "left_cm": 1.8, "top_cm": 1.25, "right_cm": 1.8, "bottom_cm": 1.1 },
+  "corner_radius": { "card": 0.038, "bar": 0.1667 },
+  "card_line": { "color": "E4E4E4", "width_emu": 12700 },
+  "shadow": { "blur": 177800, "dist": 50800, "dir": 5400000, "alpha": 30000 },
+  "motif": {
+    "ring_thickness": 0.14,
+    "cover_ring_cm": 17.0,
+    "wave_height_cm": 2.8,
+    "accent_circles_cm": [1.6, 0.8]
+  }
+}
