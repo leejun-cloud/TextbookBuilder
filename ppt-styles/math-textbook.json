@@ -1,0 +1,53 @@
+{
+  "name": "math-textbook",
+  "description": "차분한 인디고·차콜 톤 + 세리프 타이포그래피. 여백을 넉넉히 두고 장식을 절제한 학술/교재형 스타일. 수식·개념 설명 카드, 읽기 중심 강의자료에 어울린다.",
+  "source": "beautiful-doc Astro Starlight 사이트 academic/mathematics 페이지 디자인 (2026-08-08)",
+  "palette": {
+    "primary": "312E81",
+    "bright": "4F46E5",
+    "accent": "6366F1",
+    "charcoal": "1E1E24",
+    "gray": "5B6270",
+    "light": "F5F5F7",
+    "white": "FFFFFF",
+    "divider": "E4E7EC",
+    "footer": "94A1B2",
+    "dark_bg": "16181D",
+    "dark_sub": "C7CAD1"
+  },
+  "gradient": {
+    "main": { "colors": ["312E81", "4F46E5"], "angle": 0 },
+    "diagonal": { "colors": ["312E81", "4F46E5"], "angle": 45 },
+    "vertical": { "colors": ["4F46E5", "6366F1"], "angle": 90 },
+    "soft": { "colors": ["EEF2FF", "E0E7FF"], "angle": 0 },
+    "dark": { "colors": ["16181D", "262A3D"], "angle": 60 }
+  },
+  "font": {
+    "main": "Source Serif 4",
+    "fallback": "나눔명조",
+    "latin": "Georgia"
+  },
+  "type_scale": {
+    "cover_title": 44,
+    "title": 26,
+    "section": 24,
+    "subtitle": 13,
+    "body": 15,
+    "card_head": 16,
+    "card_body": 11.5,
+    "caption": 10.5,
+    "kicker": 11,
+    "big_number": 24,
+    "footer": 8.5
+  },
+  "margins": { "left_cm": 2.0, "top_cm": 1.4, "right_cm": 2.0, "bottom_cm": 1.2 },
+  "corner_radius": { "card": 0.015, "bar": 0.06 },
+  "card_line": { "color": "E4E7EC", "width_emu": 9525 },
+  "shadow": { "blur": 90000, "dist": 25000, "dir": 5400000, "alpha": 15000 },
+  "motif": {
+    "ring_thickness": 0.06,
+    "cover_ring_cm": 10.0,
+    "wave_height_cm": 1.2,
+    "accent_circles_cm": [0.9, 0.5]
+  }
+}
