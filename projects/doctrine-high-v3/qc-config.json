@@ -1,0 +1,8 @@
+{
+  "_설명": "doctrine-high-v3 분량·필기 기준 — 1과 기준본(사용자 승인 3단계 축약본) 실측값. type_check는 v3가 유형 변주 장치를 지면에서 뺐으므로 끈다. skip_core: 1과는 승인본이 spec 핵심 문장을 다듬어 썼으므로 원문 대조를 건너뛴다(2과부터는 spec 원문 그대로).",
+  "target": { "draft.md": 2810, "teacher-notes.md": 3220 },
+  "write_min": 10,
+  "write_max": 14,
+  "type_check": false,
+  "skip_core": [1]
+}
