@@ -1,23 +1,48 @@
 ---
 name: export-docx
-description: 승인된 과의 본문·활동지·교사용 자료를 워드(.docx) 파일로 변환한다. "N과 워드로 내보내줘", "/export-docx N", "/export-docx all"(전체 통합본) 등에 사용.
+description: 승인되고 최종 검증을 통과한 과를 워드(.docx) 파일로 변환한다. "N과 워드로 내보내줘", "/export-docx N", "/export-docx all" 등에 사용.
 ---
 
 `/export-docx N` 또는 `/export-docx all` 형태로 호출된다. N을 두 자리로 0-padding한 값을 `NN`이라 한다. `<project-id>`는 확정된 프로젝트다. pandoc은 `/opt/homebrew/bin/pandoc`에 설치되어 있다.
 
-## 1. 교재 제목 확인
+## 1. 프로젝트와 출력 프로필 확인
 
-`projects/<project-id>/project.md`에서 교재 제목을 확인한다.
+`projects/<project-id>/project.md`에서 다음을 확인한다.
 
-## 2. 단일 과 변환 (`/export-docx N`)
+- 교재 제목
+- 출력 프로필: `student-only`인지 일반 본문+활동지+교사용인지
+- 최종 검증 필수 여부
+- 판형/스타일 관련 특수 지침
 
-`projects/<project-id>/lessons/NN/approved.md`를 사용한다. 없으면 `draft.md`를 대신 사용하되, 승인되지 않은 초안임을 사용자에게 경고 문구로 알린다.
+## 2. 최종 검증 게이트 — 반드시 먼저
 
-다음 세 파일을 `projects/<project-id>/lessons/NN/exports/`에 생성한다. 파일명의 `<교재제목>`은 project.md에서 읽은 제목으로 치환한다.
+최종 파일을 만들기 전에 `projects/<project-id>/lessons/NN/final-validation.md`를 확인한다.
 
-- `<교재제목>_N과_본문.docx` ← approved.md(또는 draft.md)
-- `<교재제목>_N과_활동지.docx` ← worksheet.md
-- `<교재제목>_N과_교사용.docx` ← teacher-notes.md
+- 파일이 없으면 `/validate-final N`을 먼저 실행한다.
+- 마지막 판정이 `최종 출력 허용: YES`가 아니면 **내보내기를 중단한다.**
+- FAIL 상태에서 초안 경고만 붙여 임의로 출력하지 않는다.
+
+`/export-docx all`의 경우 포함할 모든 과가 각각 `최종 출력 허용: YES`여야 한다. 하나라도 미통과면 전체 합본을 만들지 않고 미통과 과 번호를 보고한다.
+
+## 3. 단일 과 변환 (`/export-docx N`)
+
+기본 원본은 `projects/<project-id>/lessons/NN/approved.md`다. 승인본이 없으면 최종 출력하지 않는다.
+
+### student-only 프로젝트
+
+학생용 전용 프로젝트는 교사용 파일을 생성하지 않는다. `approved.md`와 필요한 학생 활동 내용을 합쳐 다음 한 파일만 생성한다.
+
+- `<교재제목>_N과_학생용.docx`
+
+`teacher-notes.md`가 존재하더라도 최종 학생용 결과물에는 포함하지 않는다.
+
+### 일반 프로젝트
+
+기존 구조를 유지한다.
+
+- `<교재제목>_N과_본문.docx`
+- `<교재제목>_N과_활동지.docx`
+- `<교재제목>_N과_교사용.docx`
 
 기본 명령 형태:
 
@@ -25,12 +50,17 @@ description: 승인된 과의 본문·활동지·교사용 자료를 워드(.doc
 pandoc input.md -o output.docx
 ```
 
-`templates/reference.docx`(저장소 루트 기준)가 존재하면 워드 스타일 일관성을 위해 `--reference-doc=templates/reference.docx` 옵션을 추가한다.
+`templates/reference.docx`가 존재하면 `--reference-doc=templates/reference.docx`를 사용한다. 프로젝트 전용 reference.docx가 지정되어 있으면 프로젝트 전용 파일을 우선한다.
 
-## 3. 전체 통합본 (`/export-docx all`)
+## 4. 전체 통합본 (`/export-docx all`)
 
-승인된(=approved.md가 존재하는) 과를 번호 순서대로 모두 찾아 하나의 워드 파일로 합친다. pandoc은 여러 마크다운 파일을 이어 붙일 때 파일 사이에 아무 구분이 없으면 섹션이 그냥 이어지므로, 각 과 사이에 페이지 나누기를 넣어야 한다. 마크다운에서 raw OpenXML 페이지 나누기를 삽입하는 구분자를 각 과 파일 사이에 끼워 넣은 임시 결합 파일을 만든 뒤 pandoc으로 변환하거나, 각 과를 개별 변환해 두었다가 필요시 안내한다. 결과물은 `projects/<project-id>/exports/<교재제목>_전체.docx`로 저장한다. reference.docx가 있으면 동일하게 적용한다.
+최종 검증 PASS + 승인본 존재 조건을 모두 만족한 과만 번호 순서대로 합친다.
 
-## 4. 결과 보고
+- student-only 프로젝트: 학생용 승인본만 합쳐 `projects/<project-id>/exports/<교재제목>_학생용_전체.docx`
+- 일반 프로젝트: 기존 통합 규칙을 사용한다.
 
-생성된 파일들의 경로를 모두 알려주고, 워드에서 바로 열어 확인할 수 있음을 안내한다.
+각 과 사이에는 페이지 나누기를 넣는다.
+
+## 5. 결과 보고
+
+생성 파일 경로와 함께, 해당 결과물이 어떤 `final-validation.md` PASS를 근거로 출력되었는지 과 번호별로 알려준다.
