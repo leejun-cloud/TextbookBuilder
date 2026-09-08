@@ -7,3 +7,8 @@ __pycache__/
 # 원천 자료 추출본 — 원본에서 재생성 가능하고, 사용 제한(교회 교육자료용)이 걸린
 # 제3자 문서 전문을 포함하므로 저장소에 넣지 않는다.
 **/sources/_extracted/
+.gstack/
+
+# 초등부 456 v2 — 중간 조판 산출물(콘텐츠 JSON에서 재생성 가능)
+projects/elementary-456-v2/build/
+projects/elementary-456-v2/sources/.verse-corpus.txt

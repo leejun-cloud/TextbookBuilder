@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>1과</title>
+<style>
+@page { size: 182mm 257mm; margin: 0; }
+* { box-sizing: border-box; }
+body { margin:0; font-family:'NanumSquareRound','Apple SD Gothic Neo','맑은 고딕',sans-serif; color:#2F3A35; }
+
+.page {
+  width:182mm; height:257mm;
+  box-sizing:border-box;
+  padding: 11mm 12mm 13mm;
+  page-break-after: always;
+  position:relative;
+  overflow:hidden;
+  background:#fff;
+  border-top: 4mm solid #2E7D4E;
+}
+.page:last-child { page-break-after: auto; }
+
+/* 머리글 */
+.header-row {
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-size:8.5pt; color:#6B7785; margin-bottom:5mm;
+}
+.header-row .right { color:#2E7D4E; font-weight:700; }
+
+/* 배지 줄 */
+.badge-row { display:flex; align-items:center; gap:3mm; margin-bottom:3mm; }
+.pill {
+  display:inline-block; background:#2E7D4E; color:#fff; font-weight:700;
+  font-size:9pt; padding:1.2mm 4mm; border-radius:10mm;
+}
+.meta-text { color:#2E7D4E; font-weight:700; font-size:9pt; }
+
+/* 큰 제목 */
+h1.title { font-size:20pt; font-weight:700; color:#173C2B; margin:0 0 4mm; }
+
+/* 단계 칩 탭 */
+.chip-tabs { display:flex; gap:2.5mm; margin-bottom:5mm; }
+.chip {
+  flex:1; text-align:center; font-size:8.5pt; font-weight:700;
+  padding:2.2mm 0; border-radius:6mm; background:#F1F5F2; color:#6B7785;
+}
+.chip.active { background:#2E7D4E; color:#fff; }
+
+/* 한 문장 박스 */
+.sentence-box {
+  background:#E9F4EC; border-left:3px solid #2E7D4E; border-radius:2mm;
+  padding:3.5mm 5mm; margin-bottom:5mm;
+}
+.sentence-box .label { color:#2E7D4E; font-weight:700; font-size:8.5pt; margin-bottom:1.5mm; }
+.sentence-box .body { font-size:12pt; font-weight:700; color:#173C2B; }
+
+/* 섹션 헤더 */
+.section-header {
+  display:flex; justify-content:space-between; align-items:baseline;
+  color:#2E7D4E; font-weight:700; font-size:11pt; margin: 4mm 0 2.5mm;
+}
+.section-header .time { color:#6B7785; font-weight:400; font-size:8.5pt; }
+
+/* 일반 본문 박스 (연회색) */
+.plain-box {
+  background:#F1F5F2; border-radius:2mm; padding:3.5mm 5mm; font-size:9.5pt; line-height:1.55;
+  margin-bottom:3mm;
+}
+
+/* 필기 줄 */
+.write-line { margin-bottom:3mm; }
+.write-line .wl-label { font-weight:700; font-size:9pt; margin-bottom:1mm; }
+.write-line .wl-blank { height:7mm; border-bottom:0.35mm solid #B9C6BD; }
+
+/* 안내 굵은 한 줄 */
+.guide-line { font-weight:700; font-size:9.5pt; margin: 2mm 0 1.5mm; }
+.center-text { font-size:9.5pt; color:#173C2B; font-weight:700; margin-bottom:3mm; }
+
+/* 질문 */
+.qbox { font-weight:700; font-size:9.5pt; margin-bottom:1.5mm; }
+
+/* 확인구절 박스 */
+.check-box {
+  background:#F1F5F2; border-radius:2mm; padding:3mm 5mm; margin-bottom:4mm;
+}
+.check-box .label { color:#2E7D4E; font-weight:700; font-size:8.5pt; margin-bottom:1mm; }
+.check-box .verse { color:#173C2B; font-size:9.5pt; }
+
+/* 도움 사다리 */
+.help-strip {
+  background:#EFF8F1; font-size:8.5pt; color:#2F3A35; padding:2.5mm 5mm; border-radius:2mm; margin-bottom:4mm;
+}
+.help-strip b { color:#2E7D4E; }
+
+/* 말씀 이해 박스 */
+.understand-box {
+  background:#fff; border:0.35mm solid #2E7D4E; border-radius:2mm; padding:3.5mm 5mm; margin-bottom:4mm;
+}
+.understand-box .subtitle { color:#2E7D4E; font-weight:700; font-size:9.5pt; margin-bottom:2mm; }
+.understand-box .label { font-weight:700; font-size:8.5pt; margin-bottom:1mm; }
+.understand-box .body { font-size:9.5pt; line-height:1.55; }
+
+/* 사고활동 표 */
+table.think-table { width:100%; border-collapse:collapse; font-size:9pt; margin-bottom:3mm; }
+table.think-table th { background:#2E7D4E; color:#fff; font-weight:700; padding:2mm 2.5mm; text-align:left; }
+table.think-table td { border:0.3mm solid #D9E4DC; padding:2mm 2.5mm; }
+
+/* 빈칸 라벨 박스 */
+.blank-label-box {
+  background:#F1F5F2; border-radius:2mm; padding:2mm 4mm; display:inline-block;
+  font-weight:700; font-size:8.5pt; color:#2E7D4E; margin-bottom:2mm;
+}
+.blank-sentence { font-size:11pt; font-weight:700; color:#173C2B; margin-bottom:3mm; }
+.mission-text { font-size:9.5pt; margin-bottom:2mm; }
+
+/* 결단 액션 */
+.decision-text { font-weight:700; font-size:10pt; margin-bottom:2.5mm; }
+table.decide-table { width:100%; border-collapse:collapse; font-size:9pt; margin-bottom:3mm; }
+table.decide-table th { background:#E9F4EC; color:#173C2B; font-weight:700; padding:2mm; border:0.3mm solid #D9E4DC; text-align:left; }
+table.decide-table td { border:0.3mm solid #D9E4DC; height:10mm; padding:2mm; }
+
+/* 체크박스 4개 */
+.checkbox-row { display:flex; gap:4mm; font-size:9pt; margin: 2mm 0 1mm; flex-wrap:nowrap; }
+.checkbox-note { font-size:8pt; color:#6B7785; margin-bottom:3mm; }
+
+/* 암송 박스 */
+.recite-box {
+  background:#E9F4EC; border-radius:2mm; padding:3mm 5mm; margin-bottom:4mm;
+}
+.recite-box .label { color:#2E7D4E; font-weight:700; font-size:8.5pt; margin-bottom:1mm; }
+.recite-box .body { font-size:9.5pt; color:#173C2B; }
+
+.small-gray { font-size:8pt; color:#6B7785; }
+
+/* 바닥글 */
+.footer {
+  position:absolute; left:12mm; right:12mm; bottom:6mm;
+  border-top:0.3mm solid #D9E4DC; padding-top:2mm;
+  font-size:8pt; color:#6B7785;
+}
+
+/* 교사용 표 */
+table.teacher-table { width:100%; border-collapse:collapse; font-size:9pt; margin-bottom:4mm; }
+table.teacher-table th { background:#173C2B; color:#fff; font-weight:700; padding:2mm 2.5mm; text-align:left; }
+table.teacher-table td { border:0.3mm solid #D9E4DC; padding:2mm 2.5mm; vertical-align:top; }
+
+h2.teacher-title { font-size:16pt; color:#173C2B; margin:0 0 1.5mm; }
+.teacher-subtitle { font-size:9pt; color:#6B7785; margin-bottom:4mm; }
+h3.tsec { font-size:10pt; color:#2E7D4E; font-weight:700; margin: 3mm 0 1.5mm; }
+.tline { font-size:9pt; line-height:1.6; margin-bottom:1mm; }
+</style>
+</head>
+<body>
+
+<!-- 1쪽 -->
+<div class="page">
+  <div class="header-row">
+    <span>다음세대 교리교육 · 초등부 학생용 교재</span>
+    <span class="right">관찰하고 관계 찾기</span>
+  </div>
+  <div class="badge-row">
+    <span class="pill">4학년</span>
+    <span class="meta-text">1과 · 1년차 1과 · 초등부 1과 · 공통 1과 · ● 필수암송</span>
+  </div>
+  <h1 class="title">하나님 나라는 어떤 나라일까요?</h1>
+  <div class="chip-tabs">
+    <div class="chip active">1 일상 스토리</div>
+    <div class="chip active">2 말씀 탐험</div>
+    <div class="chip">3 빈칸·미션</div>
+    <div class="chip">4 결단 액션</div>
+    <div class="chip">5 말씀 이어가기</div>
+  </div>
+
+  <div class="sentence-box">
+    <div class="label">오늘의 한 문장</div>
+    <div class="body">하나님 나라는 하나님이 왕으로 다스리시는 나라예요.</div>
+  </div>
+
+  <div class="section-header"><span>1  일상 스토리</span><span class="time">6분</span></div>
+  <div class="plain-box">오늘 아침 옷은 누가 골랐나요? 저녁 메뉴는 누가 정하나요? 내 하루를 정하는 사람은 누구일까요?</div>
+  <div class="write-line"><div class="wl-label">내가 정한 일</div><div class="wl-blank"></div></div>
+  <div class="write-line"><div class="wl-label">누가 정해 준 일</div><div class="wl-blank"></div></div>
+
+  <div class="section-header"><span>2  말씀 탐험</span><span class="time">12분</span></div>
+  <div class="guide-line">성경을 직접 펴서 먼저 답을 찾아요. 확인구절은 답을 쓴 뒤 읽어요.</div>
+  <div class="center-text">중심 본문 엡 1:9-10</div>
+
+  <div class="qbox">① 하나님은 어디까지 다스리시나요? (시 103:19)</div>
+  <div class="write-line"><div class="wl-label">찾은 답</div><div class="wl-blank"></div></div>
+  <div class="check-box">
+    <div class="label">답을 쓴 뒤 맞추어 보기 · 시 103:19</div>
+    <div class="verse">여호와께서 그의 보좌를 하늘에 세우시고 그의 왕권으로 만유를 다스리시도다</div>
+  </div>
+
+  <div class="footer">4학년 · 1과 · 1년차 1과 · 공통 1과 · 1/4</div>
+</div>
+
+<!-- 2쪽 -->
+<div class="page">
+  <div class="header-row">
+    <span>다음세대 교리교육 · 초등부 학생용 교재</span>
+    <span class="right">관찰하고 관계 찾기</span>
+  </div>
+  <div class="badge-row">
+    <span class="pill">4학년</span>
+    <span class="meta-text">1과 · 1년차 1과 · 초등부 1과 · 공통 1과 · ● 필수암송</span>
+  </div>
+  <h1 class="title">하나님 나라는 어떤 나라일까요?</h1>
+  <div class="chip-tabs">
+    <div class="chip">1 일상 스토리</div>
+    <div class="chip active">2 말씀 탐험</div>
+    <div class="chip">3 빈칸·미션</div>
+    <div class="chip">4 결단 액션</div>
+    <div class="chip">5 말씀 이어가기</div>
+  </div>
+
+  <div class="qbox">② 예수님은 무엇이 가까이 왔다고 하셨나요? (막 1:15)</div>
+  <div class="write-line"><div class="wl-label">찾은 답</div><div class="wl-blank"></div></div>
+  <div class="check-box">
+    <div class="label">답을 쓴 뒤 맞추어 보기 · 막 1:15</div>
+    <div class="verse">때가 찼고 하나님의 나라가 가까이 왔으니 회개하고 복음을 믿으라</div>
+  </div>
+
+  <div class="help-strip"><b>도움 사다리</b>  혼자 찾기 → 짝에게 절 위치 힌트 받기 → 교사에게 절 위치만 묻기</div>
+
+  <div class="section-header"><span>2단계 계속 · 성경에서 찾고 확인한 뒤 읽어요</span></div>
+  <div class="understand-box">
+    <div class="subtitle">왕이 다스리시는 모든 자리</div>
+    <div class="label">말씀 이해</div>
+    <div class="body">「나라」라고 하면 지도에 그려진 땅이 떠올라요. 그러나 성경의 하나님 나라는 땅 이름만 뜻하지 않아요. 왕이 다스리는 자리가 나라예요. 하나님은 온 세상을 다스리시고 예수님 안에서 모든 것을 하나로 모으세요. 그래서 학교와 집, 놀이와 선택도 하나님의 다스리심 밖에 있지 않아요.</div>
+  </div>
+
+  <div class="section-header"><span>4학년 사고활동 · 본문에서 찾아 관계 잇기</span></div>
+  <table class="think-table">
+    <tr><th>본문에서 찾은 말</th><th>이어지는 뜻</th><th>내 하루</th></tr>
+    <tr><td>왕권·다스리심·나라</td><td>하나님이 왕으로 다스리세요</td><td>왕의 뜻을 생각해요</td></tr>
+  </table>
+  <div class="write-line"><div class="wl-label">한 문장</div><div class="wl-blank"></div></div>
+
+  <div class="footer">4학년 · 1과 · 1년차 1과 · 공통 1과 · 2/4</div>
+</div>
+
+<!-- 3쪽 -->
+<div class="page">
+  <div class="header-row">
+    <span>다음세대 교리교육 · 초등부 학생용 교재</span>
+    <span class="right">관찰하고 관계 찾기</span>
+  </div>
+  <div class="badge-row">
+    <span class="pill">4학년</span>
+    <span class="meta-text">1과 · 1년차 1과 · 초등부 1과 · 공통 1과 · ● 필수암송</span>
+  </div>
+  <h1 class="title">하나님 나라는 어떤 나라일까요?</h1>
+  <div class="chip-tabs">
+    <div class="chip">1 일상 스토리</div>
+    <div class="chip">2 말씀 탐험</div>
+    <div class="chip active">3 빈칸·미션</div>
+    <div class="chip active">4 결단 액션</div>
+    <div class="chip active">5 말씀 이어가기</div>
+  </div>
+
+  <div class="section-header"><span>3  빈칸·미션</span><span class="time">10분</span></div>
+  <div class="blank-label-box">빈칸은 딱 하나</div>
+  <div class="blank-sentence">하나님 나라는 하나님이 ______으로 다스리시는 나라예요.</div>
+  <div class="mission-text">이번 주 내가 정하고 싶은 일 앞에 "하나님이 왕이세요"라고 써 보세요.</div>
+  <div class="write-line"><div class="wl-label">나의 미션</div><div class="wl-blank"></div></div>
+  <div class="write-line"><div class="wl-blank"></div></div>
+
+  <div class="section-header"><span>4  결단 액션</span><span class="time">7분</span></div>
+  <div class="decision-text">선택하기 전에 "누가 왕이지?" 한 번 물어보기</div>
+  <table class="decide-table">
+    <tr><th>언제</th><th>어디서</th></tr>
+    <tr><td></td><td></td></tr>
+  </table>
+
+  <div class="section-header"><span>5  말씀 이어가기</span><span class="time">5분</span></div>
+  <div class="plain-box">오늘 배운 것을 한 사람과 나눠요. 방법은 내가 고르고, 다음 주에 검사하지 않아요.</div>
+  <div class="checkbox-row">
+    <span>☐ 가족과</span><span>☐ 믿을 만한 어른과</span><span>☐ 교사와</span><span>☐ 혼자 기록</span>
+  </div>
+  <div class="checkbox-note">네 방법은 모두 동등한 참여입니다.</div>
+  <div class="mission-text">나눌 말: "우리 집과 학교에서 하나님이 왕이시라는 것은 무슨 뜻일까요?"</div>
+
+  <div class="recite-box">
+    <div class="label">암송 · 엡 1:10</div>
+    <div class="body">다 그리스도 안에서 통일되게 하려 하심이라</div>
+  </div>
+
+  <div class="section-header"><span>오늘의 한 문장을 내 말로 말해요</span></div>
+  <div class="write-line"><div class="wl-label">내 말</div><div class="wl-blank"></div></div>
+  <div class="write-line"><div class="wl-blank"></div></div>
+
+  <div class="small-gray">※ 활동 기록은 믿음을 점수로 표시하는 칸이 아닙니다.</div>
+
+  <div class="footer">4학년 · 1과 · 1년차 1과 · 공통 1과 · 3/4</div>
+</div>
+
+<!-- 4쪽 교사용 -->
+<div class="page">
+  <div class="header-row">
+    <span>다음세대 교리교육 · 초등부</span>
+    <span class="right">교사용 지도</span>
+  </div>
+  <h2 class="teacher-title">1과 하나님 나라는 어떤 나라일까요? — 교사용 지도</h2>
+  <div class="teacher-subtitle">학생 배부본에는 인쇄하지 않습니다</div>
+
+  <h3 class="tsec">말씀 탐험 예시 답</h3>
+  <table class="teacher-table">
+    <tr><th>구절</th><th>질문</th><th>예시 답</th></tr>
+    <tr><td>시 103:19</td><td>어디까지 다스리시나요?</td><td>온 세상 모든 것을 다스리세요.</td></tr>
+    <tr><td>막 1:15</td><td>무엇이 가까이 왔나요?</td><td>하나님의 나라가 가까이 왔어요.</td></tr>
+    <tr><td>빈칸·사고활동</td><td></td><td>왕 / 왕권·다스림·나라를 내 선택과 연결</td></tr>
+  </table>
+
+  <h3 class="tsec">2단계 진행과 교사 코칭</h3>
+  <div class="tline"><b>진행</b> · 성경 찾기 → 답 기록 → 확인구절 → 말씀 이해 → 관계 활동.</div>
+  <div class="tline"><b>묻기</b> · 몇 절에서 찾았니? · 왕은 무엇을 하시니? · 오늘 네 선택은 무엇이 달라질까?</div>
+  <div class="tline"><b>하지 않기</b> · 답을 먼저 말하기 · 확인구절부터 읽히기 · 막연한 결단을 그대로 받기</div>
+
+  <h3 class="tsec">평가 관찰기준 · 점수 서열에 사용하지 않음</h3>
+  <table class="teacher-table">
+    <tr><th>단계</th><th>기준</th></tr>
+    <tr><td>도움 필요</td><td>오늘의 한 문장을 따라 말한다.</td></tr>
+    <tr><td>기본 도달</td><td>두 구절의 답을 자기 말로 말한다.</td></tr>
+    <tr><td>연결 도달</td><td>왕-다스림-내 선택의 관계를 말한다.</td></tr>
+  </table>
+
+  <h3 class="tsec">교사 메모</h3>
+  <table class="teacher-table">
+    <tr><td>신앙고백</td><td>WSC 1문 · HC 1주일(1문) · 기독교강요 I.1-2; III.6-7</td></tr>
+    <tr><td>흔한 오해</td><td>하나님 나라를 하늘의 장소로만 생각함. 왕이 다스리는 자리임을 설명한다.</td></tr>
+    <tr><td>낱말</td><td>통치 → 다스리심 / 만유 → 온 세상 모든 것</td></tr>
+    <tr><td>중등부 연결</td><td>"하나님이 왕이시면 내 하루에서 무엇이 달라질까요?" 4학년에서는 직접 던지지 않는다.</td></tr>
+    <tr><td>준비물</td><td>성경 · 필기도구 · 여분 성경 2권 이상</td></tr>
+  </table>
+
+  <div class="footer">40분 6+12+10+7+5 / 30분 4+10+8+5+3 / 5분 최소 오늘의 한 문장·중심본문·주활동·기도</div>
+</div>
+
+</body>
+</html>

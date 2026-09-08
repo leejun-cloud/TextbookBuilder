@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>2과</title>
+<style>
+@page { size: 182mm 257mm; margin: 0; }
+* { box-sizing: border-box; }
+body { margin:0; font-family:'NanumSquareRound','Apple SD Gothic Neo','맑은 고딕',sans-serif; color:#2F3A35; }
+
+.page {
+  width:182mm; height:257mm;
+  box-sizing:border-box;
+  padding: 11mm 12mm 13mm;
+  page-break-after: always;
+  position:relative;
+  overflow:hidden;
+  background:#fff;
+  border-top: 4mm solid #2E7D4E;
+}
+.page:last-child { page-break-after: auto; }
+
+.header-row {
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-size:8.5pt; color:#6B7785; margin-bottom:5mm;
+}
+.header-row .right { color:#2E7D4E; font-weight:700; }
+
+.badge-row { display:flex; align-items:center; gap:3mm; margin-bottom:3mm; }
+.pill {
+  display:inline-block; background:#2E7D4E; color:#fff; font-weight:700;
+  font-size:9pt; padding:1.2mm 4mm; border-radius:10mm;
+}
+.meta-text { color:#2E7D4E; font-weight:700; font-size:9pt; }
+
+h1.title { font-size:20pt; font-weight:700; color:#173C2B; margin:0 0 4mm; }
+
+.chip-tabs { display:flex; gap:2.5mm; margin-bottom:5mm; }
+.chip {
+  flex:1; text-align:center; font-size:8.5pt; font-weight:700;
+  padding:2.2mm 0; border-radius:6mm; background:#F1F5F2; color:#6B7785;
+}
+.chip.active { background:#2E7D4E; color:#fff; }
+
+.sentence-box {
+  background:#E9F4EC; border-left:3px solid #2E7D4E; border-radius:2mm;
+  padding:3.5mm 5mm; margin-bottom:5mm;
+}
+.sentence-box .label { color:#2E7D4E; font-weight:700; font-size:8.5pt; margin-bottom:1.5mm; }
+.sentence-box .body { font-size:12pt; font-weight:700; color:#173C2B; }
+
+.section-header {
+  display:flex; justify-content:space-between; align-items:baseline;
+  color:#2E7D4E; font-weight:700; font-size:11pt; margin: 4mm 0 2.5mm;
+}
+.section-header .time { color:#6B7785; font-weight:400; font-size:8.5pt; }
+
+.plain-box {
+  background:#F1F5F2; border-radius:2mm; padding:3.5mm 5mm; font-size:9.5pt; line-height:1.55;
+  margin-bottom:3mm;
+}
+
+.write-line { margin-bottom:3mm; }
+.write-line .wl-label { font-weight:700; font-size:9pt; margin-bottom:1mm; }
+.write-line .wl-blank { height:7mm; border-bottom:0.35mm solid #B9C6BD; }
+
+.guide-line { font-weight:700; font-size:9.5pt; margin: 2mm 0 1.5mm; }
+.center-text { font-size:9.5pt; color:#173C2B; font-weight:700; margin-bottom:3mm; }
+
+.qbox { font-weight:700; font-size:9.5pt; margin-bottom:1.5mm; }
+
+.check-box {
+  background:#F1F5F2; border-radius:2mm; padding:3mm 5mm; margin-bottom:4mm;
+}
+.check-box .label { color:#2E7D4E; font-weight:700; font-size:8.5pt; margin-bottom:1mm; }
+.check-box .verse { color:#173C2B; font-size:9.5pt; }
+
+.help-strip {
+  background:#EFF8F1; font-size:8.5pt; color:#2F3A35; padding:2.5mm 5mm; border-radius:2mm; margin-bottom:4mm;
+}
+.help-strip b { color:#2E7D4E; }
+
+.understand-box {
+  background:#fff; border:0.35mm solid #2E7D4E; border-radius:2mm; padding:3.5mm 5mm; margin-bottom:4mm;
+}
+.understand-box .subtitle { color:#2E7D4E; font-weight:700; font-size:9.5pt; margin-bottom:2mm; }
+.understand-box .label { font-weight:700; font-size:8.5pt; margin-bottom:1mm; }
+.understand-box .body { font-size:9.5pt; line-height:1.55; }
+
+table.think-table { width:100%; border-collapse:collapse; font-size:9pt; margin-bottom:3mm; }
+table.think-table th { background:#2E7D4E; color:#fff; font-weight:700; padding:2mm 2.5mm; text-align:left; }
+table.think-table td { border:0.3mm solid #D9E4DC; padding:2mm 2.5mm; }
+
+.blank-label-box {
+  background:#F1F5F2; border-radius:2mm; padding:2mm 4mm; display:inline-block;
+  font-weight:700; font-size:8.5pt; color:#2E7D4E; margin-bottom:2mm;
+}
+.blank-sentence { font-size:11pt; font-weight:700; color:#173C2B; margin-bottom:3mm; }
+.mission-text { font-size:9.5pt; margin-bottom:2mm; }
+
+.decision-text { font-weight:700; font-size:10pt; margin-bottom:2.5mm; }
+table.decide-table { width:100%; border-collapse:collapse; font-size:9pt; margin-bottom:3mm; }
+table.decide-table th { background:#E9F4EC; color:#173C2B; font-weight:700; padding:2mm; border:0.3mm solid #D9E4DC; text-align:left; }
+table.decide-table td { border:0.3mm solid #D9E4DC; height:10mm; padding:2mm; }
+
+.checkbox-row { display:flex; gap:4mm; font-size:9pt; margin: 2mm 0 1mm; flex-wrap:nowrap; }
+.checkbox-note { font-size:8pt; color:#6B7785; margin-bottom:3mm; }
+
+.recite-box {
+  background:#E9F4EC; border-radius:2mm; padding:3mm 5mm; margin-bottom:4mm;
+}
+.recite-box .label { color:#2E7D4E; font-weight:700; font-size:8.5pt; margin-bottom:1mm; }
+.recite-box .body { font-size:9.5pt; color:#173C2B; }
+
+.small-gray { font-size:8pt; color:#6B7785; }
+
+.footer {
+  position:absolute; left:12mm; right:12mm; bottom:6mm;
+  border-top:0.3mm solid #D9E4DC; padding-top:2mm;
+  font-size:8pt; color:#6B7785;
+}
+
+table.teacher-table { width:100%; border-collapse:collapse; font-size:9pt; margin-bottom:4mm; }
+table.teacher-table th { background:#173C2B; color:#fff; font-weight:700; padding:2mm 2.5mm; text-align:left; }
+table.teacher-table td { border:0.3mm solid #D9E4DC; padding:2mm 2.5mm; vertical-align:top; }
+
+h2.teacher-title { font-size:16pt; color:#173C2B; margin:0 0 1.5mm; }
+.teacher-subtitle { font-size:9pt; color:#6B7785; margin-bottom:4mm; }
+h3.tsec { font-size:10pt; color:#2E7D4E; font-weight:700; margin: 3mm 0 1.5mm; }
+.tline { font-size:9pt; line-height:1.6; margin-bottom:1mm; }
+</style>
+</head>
+<body>
+
+<!-- 1쪽 -->
+<div class="page">
+  <div class="header-row">
+    <span>다음세대 교리교육 · 초등부 학생용 교재</span>
+    <span class="right">관찰하고 관계 찾기</span>
+  </div>
+  <div class="badge-row">
+    <span class="pill">4학년</span>
+    <span class="meta-text">2과 · 1년차 2과 · 초등부 2과 · 공통 2과</span>
+  </div>
+  <h1 class="title">성경은 하나로 이어진 긴 이야기예요</h1>
+  <div class="chip-tabs">
+    <div class="chip active">1 일상 스토리</div>
+    <div class="chip active">2 말씀 탐험</div>
+    <div class="chip">3 빈칸·미션</div>
+    <div class="chip">4 결단 액션</div>
+    <div class="chip">5 말씀 이어가기</div>
+  </div>
+
+  <div class="sentence-box">
+    <div class="label">오늘의 한 문장</div>
+    <div class="body">성경은 처음부터 끝까지 이어지는 하나님의 한 이야기예요.</div>
+  </div>
+
+  <div class="section-header"><span>1  일상 스토리</span><span class="time">6분</span></div>
+  <div class="plain-box">좋아하는 이야기책의 처음과 끝을 기억하나요? 성경에도 처음과 끝이 있어요.</div>
+  <div class="write-line"><div class="wl-label">내가 좋아하는 이야기책</div><div class="wl-blank"></div></div>
+  <div class="write-line"><div class="wl-label">그 이야기의 끝 장면</div><div class="wl-blank"></div></div>
+
+  <div class="section-header"><span>2  말씀 탐험</span><span class="time">12분</span></div>
+  <div class="guide-line">성경을 직접 펴서 먼저 답을 찾아요. 확인구절은 답을 쓴 뒤 읽어요.</div>
+  <div class="center-text">중심 본문 창 1:1; 계 21:1</div>
+
+  <div class="qbox">① 성경의 첫 문장은 무엇인가요? (창 1:1)</div>
+  <div class="write-line"><div class="wl-label">찾은 답</div><div class="wl-blank"></div></div>
+  <div class="check-box">
+    <div class="label">답을 쓴 뒤 맞추어 보기 · 창 1:1</div>
+    <div class="verse">태초에 하나님이 천지를 창조하시니라</div>
+  </div>
+
+  <div class="footer">4학년 · 2과 · 1년차 2과 · 공통 2과 · 1/4</div>
+</div>
+
+<!-- 2쪽 -->
+<div class="page">
+  <div class="header-row">
+    <span>다음세대 교리교육 · 초등부 학생용 교재</span>
+    <span class="right">관찰하고 관계 찾기</span>
+  </div>
+  <div class="badge-row">
+    <span class="pill">4학년</span>
+    <span class="meta-text">2과 · 1년차 2과 · 초등부 2과 · 공통 2과</span>
+  </div>
+  <h1 class="title">성경은 하나로 이어진 긴 이야기예요</h1>
+  <div class="chip-tabs">
+    <div class="chip">1 일상 스토리</div>
+    <div class="chip active">2 말씀 탐험</div>
+    <div class="chip">3 빈칸·미션</div>
+    <div class="chip">4 결단 액션</div>
+    <div class="chip">5 말씀 이어가기</div>
+  </div>
+
+  <div class="qbox">② 성경 마지막에 하나님은 세상을 어떻게 하시나요? (계 21:5)</div>
+  <div class="write-line"><div class="wl-label">찾은 답</div><div class="wl-blank"></div></div>
+  <div class="check-box">
+    <div class="label">답을 쓴 뒤 맞추어 보기 · 계 21:5</div>
+    <div class="verse">보좌에 앉으신 이가 이르시되 보라 내가 만물을 새롭게 하노라 하시고</div>
+  </div>
+
+  <div class="help-strip"><b>도움 사다리</b>  혼자 찾기 → 짝에게 절 위치 힌트 받기 → 교사에게 절 위치만 묻기</div>
+
+  <div class="section-header"><span>2단계 계속 · 성경에서 찾고 확인한 뒤 읽어요</span></div>
+  <div class="understand-box">
+    <div class="subtitle">처음부터 끝까지 한 분의 이야기</div>
+    <div class="label">말씀 이해</div>
+    <div class="body">성경은 66권의 책이 모인 큰 책이에요. 쓴 사람도 많고 시대도 서로 달라요. 그런데 첫 장은 하나님이 세상을 만드신 이야기로 열리고, 마지막은 하나님이 만물을 새롭게 하시는 이야기로 닫혀요. 처음부터 끝까지 일하시는 분이 같은 하나님이세요. 그래서 성경은 착하게 사는 법을 모아 둔 책이 아니라, 하나님이 구해 주신 이야기 하나로 이어진 책이에요.</div>
+  </div>
+
+  <div class="section-header"><span>4학년 사고활동 · 본문에서 찾아 관계 잇기</span></div>
+  <table class="think-table">
+    <tr><th>본문에서 찾은 말</th><th>이어지는 뜻</th><th>내 하루</th></tr>
+    <tr><td>창조하시니라 · 새롭게 하노라</td><td>처음도 끝도 하나님이 일하세요</td><td>내 하루도 그 이야기 안에 있어요</td></tr>
+  </table>
+  <div class="write-line"><div class="wl-label">한 문장</div><div class="wl-blank"></div></div>
+
+  <div class="footer">4학년 · 2과 · 1년차 2과 · 공통 2과 · 2/4</div>
+</div>
+
+<!-- 3쪽 -->
+<div class="page">
+  <div class="header-row">
+    <span>다음세대 교리교육 · 초등부 학생용 교재</span>
+    <span class="right">관찰하고 관계 찾기</span>
+  </div>
+  <div class="badge-row">
+    <span class="pill">4학년</span>
+    <span class="meta-text">2과 · 1년차 2과 · 초등부 2과 · 공통 2과</span>
+  </div>
+  <h1 class="title">성경은 하나로 이어진 긴 이야기예요</h1>
+  <div class="chip-tabs">
+    <div class="chip">1 일상 스토리</div>
+    <div class="chip">2 말씀 탐험</div>
+    <div class="chip active">3 빈칸·미션</div>
+    <div class="chip active">4 결단 액션</div>
+    <div class="chip active">5 말씀 이어가기</div>
+  </div>
+
+  <div class="section-header"><span>3  빈칸·미션</span><span class="time">10분</span></div>
+  <div class="blank-label-box">빈칸은 딱 하나</div>
+  <div class="blank-sentence">성경은 처음부터 끝까지 이어지는 하나님의 ______ 이야기예요.</div>
+  <div class="mission-text">성경 목차에서 창세기와 요한계시록을 찾아 표시해 보세요.</div>
+  <div class="write-line"><div class="wl-label">나의 미션</div><div class="wl-blank"></div></div>
+  <div class="write-line"><div class="wl-blank"></div></div>
+
+  <div class="section-header"><span>4  결단 액션</span><span class="time">7분</span></div>
+  <div class="decision-text">창세기와 요한계시록에서 하나님이 하신 일을 한 가지씩 찾아보기</div>
+  <table class="decide-table">
+    <tr><th>언제</th><th>어디서</th></tr>
+    <tr><td></td><td></td></tr>
+  </table>
+
+  <div class="section-header"><span>5  말씀 이어가기</span><span class="time">5분</span></div>
+  <div class="plain-box">오늘 배운 것을 한 사람과 나눠요. 방법은 내가 고르고, 다음 주에 검사하지 않아요.</div>
+  <div class="checkbox-row">
+    <span>☐ 가족과</span><span>☐ 믿을 만한 어른과</span><span>☐ 교사와</span><span>☐ 혼자 기록</span>
+  </div>
+  <div class="checkbox-note">네 방법은 모두 동등한 참여입니다.</div>
+  <div class="mission-text">나눌 말: "가족과 함께 성경 이야기 순서를 손가락으로 세어 보세요."</div>
+
+  <div class="recite-box">
+    <div class="label">암송 · 눅 24:27</div>
+    <div class="body">모든 성경에 쓴 바 자기에 관한 것을 자세히 설명하시니라</div>
+  </div>
+
+  <div class="section-header"><span>오늘의 한 문장을 내 말로 말해요</span></div>
+  <div class="write-line"><div class="wl-label">내 말</div><div class="wl-blank"></div></div>
+  <div class="write-line"><div class="wl-blank"></div></div>
+
+  <div class="small-gray">※ 활동 기록은 믿음을 점수로 표시하는 칸이 아닙니다.</div>
+
+  <div class="footer">4학년 · 2과 · 1년차 2과 · 공통 2과 · 3/4</div>
+</div>
+
+<!-- 4쪽 교사용 -->
+<div class="page">
+  <div class="header-row">
+    <span>다음세대 교리교육 · 초등부</span>
+    <span class="right">교사용 지도</span>
+  </div>
+  <h2 class="teacher-title">2과 성경은 하나로 이어진 긴 이야기예요 — 교사용 지도</h2>
+  <div class="teacher-subtitle">학생 배부본에는 인쇄하지 않습니다</div>
+
+  <h3 class="tsec">말씀 탐험 예시 답</h3>
+  <table class="teacher-table">
+    <tr><th>구절</th><th>질문</th><th>예시 답</th></tr>
+    <tr><td>창 1:1</td><td>첫 문장은 무엇인가요?</td><td>태초에 하나님이 천지를 창조하셨어요.</td></tr>
+    <tr><td>계 21:5</td><td>세상을 어떻게 하시나요?</td><td>만물을 새롭게 하세요.</td></tr>
+    <tr><td>빈칸·사고활동</td><td></td><td>한 / 창조와 새 창조를 하나님의 한 이야기로 이음</td></tr>
+  </table>
+
+  <h3 class="tsec">2단계 진행과 교사 코칭</h3>
+  <div class="tline"><b>진행</b> · 성경 찾기 → 답 기록 → 확인구절 → 말씀 이해 → 관계 활동.</div>
+  <div class="tline"><b>묻기</b> · 성경의 첫 문장은 몇 장 몇 절이니? · 마지막에 하나님은 무엇을 하시니? · 두 장면을 이으면 주인공은 누구시니?</div>
+  <div class="tline"><b>하지 않기</b> · 답을 먼저 말하기 · 확인구절부터 읽히기 · 창세기 1장 전체를 설명하기(4과에서 다룬다)</div>
+
+  <h3 class="tsec">평가 관찰기준 · 점수 서열에 사용하지 않음</h3>
+  <table class="teacher-table">
+    <tr><th>단계</th><th>기준</th></tr>
+    <tr><td>도움 필요</td><td>오늘의 한 문장을 따라 말한다.</td></tr>
+    <tr><td>기본 도달</td><td>두 구절의 답을 자기 말로 말한다.</td></tr>
+    <tr><td>연결 도달</td><td>처음-끝-한 이야기의 관계를 말한다.</td></tr>
+  </table>
+
+  <h3 class="tsec">교사 메모</h3>
+  <table class="teacher-table">
+    <tr><td>신앙고백</td><td>WSC 2문 · HC 7주일(연계) · 기독교강요 I.6-9</td></tr>
+    <tr><td>흔한 오해</td><td>성경을 착하게 사는 법을 알려 주는 책으로 여김. 성경의 주인공은 내가 아니라 하나님이다.</td></tr>
+    <tr><td>낱말</td><td>구속사 → 하나님이 구해 주신 이야기</td></tr>
+    <tr><td>중등부 연결</td><td>"성경이 66권인데 왜 한 이야기라고 부를까요?" 4학년에서는 직접 던지지 않는다.</td></tr>
+    <tr><td>준비물</td><td>성경 · 필기도구 · 여분 성경 2권 이상</td></tr>
+  </table>
+
+  <div class="footer">40분 6+12+10+7+5 / 30분 4+10+8+5+3 / 5분 최소 오늘의 한 문장·중심본문·주활동·기도</div>
+</div>
+
+</body>
+</html>
