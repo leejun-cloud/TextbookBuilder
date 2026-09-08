@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "theme": "kids-bright",
+  "template": "picture-book/full-image",
+  "page_setup": {
+    "size": "210x210",
+    "margin_top_mm": 14,
+    "margin_bottom_mm": 14,
+    "margin_inside_mm": 14,
+    "margin_outside_mm": 14,
+    "bleed_mm": 0,
+    "page_numbers": true
+  },
+  "metadata": {
+    "title": "왕이 계신 나라",
+    "subtitle": "그림으로 보는 하나님 나라",
+    "kicker": "다음세대 그림책",
+    "department": "유년부"
+  },
+  "assets_root": "../junior-lesson/assets",
+  "pages": [
+    {
+      "layout": "full-image",
+      "blocks": [
+        { "kind": "image", "src": "hero-crown.png",
+          "attrs": { "role": "cover", "fit": "cover", "alt": "왕관과 하늘" } }
+      ]
+    },
+    {
+      "layout": "image-top-text-bottom",
+      "blocks": [
+        { "kind": "image", "src": "illust-hill.png", "attrs": { "role": "illustration", "fit": "cover" } },
+        { "kind": "text", "text": "해가 뜨면 언덕이 환해져요. 하나님이 만드신 아침이에요." }
+      ]
+    },
+    {
+      "layout": "image-left",
+      "blocks": [
+        { "kind": "image", "src": "hero-crown.png", "attrs": { "role": "illustration", "fit": "cover" } },
+        { "kind": "text", "text": "임금님에게는 왕관이 있어요." },
+        { "kind": "speech", "label": "아이", "text": "하나님도 왕이세요?" }
+      ]
+    },
+    {
+      "layout": "background-overlay",
+      "blocks": [
+        { "kind": "image", "src": "illust-hill.png", "attrs": { "role": "background", "fit": "cover" } },
+        { "kind": "text", "text": "하나님은 하늘과 땅을 다 다스리시는 왕이세요." }
+      ]
+    },
+    {
+      "layout": "multi-illustration",
+      "title": "하나님이 다스리시는 곳",
+      "blocks": [
+        { "kind": "image", "src": "hero-crown.png", "attrs": { "fit": "cover", "caption": "하늘" } },
+        { "kind": "image", "src": "illust-hill.png", "attrs": { "fit": "cover", "caption": "땅" } },
+        { "kind": "image", "src": "deco-heart.png", "attrs": { "fit": "contain", "caption": "내 마음" } },
+        { "kind": "image", "src": "step-craft.png", "attrs": { "fit": "contain", "caption": "우리 집" } },
+        { "kind": "text", "text": "어디에나 하나님의 다스리심이 있어요." }
+      ]
+    },
+    {
+      "layout": "text-top-image-bottom",
+      "blocks": [
+        { "kind": "text", "text": "오늘도 하나님이 나의 왕이세요." },
+        { "kind": "image", "src": "deco-heart.png", "attrs": { "role": "decoration", "fit": "contain" } }
+      ]
+    }
+  ]
+}

@@ -12,3 +12,6 @@ __pycache__/
 # 초등부 456 v2 — 중간 조판 산출물(콘텐츠 JSON에서 재생성 가능)
 projects/elementary-456-v2/build/
 projects/elementary-456-v2/sources/.verse-corpus.txt
+
+# Typst 렌더 산출물·중간 파일 (콘텐츠에서 재생성 가능)
+build/
