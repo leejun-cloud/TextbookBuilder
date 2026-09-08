@@ -39,6 +39,9 @@ BLOCK_KINDS = (
     'reflection',  # 생각 쓰기
     'speech',      # 말풍선
     'keywords',    # 낱말/키워드 묶음
+    'choice',      # 선택지 문항 — ( 가 / 나 / 다 ) 중 고르기
+    'match',       # 연결하기 — 여러 열의 항목을 선으로 잇기
+    'panels',      # 그림 순서 배열 — 여러 컷 + 번호 동그라미
     'spacer',      # 여백
 )
 

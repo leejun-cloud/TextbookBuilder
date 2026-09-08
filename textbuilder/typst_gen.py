@@ -131,11 +131,29 @@ def block_data(doc: BookDocument, b: Block, warnings: List[str]) -> Dict[str, An
         for k in ('position', 'caption', 'alt', 'bleed', 'crop', 'radius', 'width', 'height'):
             if k in b.attrs:
                 d[k] = b.attrs[k]
-    # 그 밖의 부가 속성은 attrs로 통째로 넘긴다(템플릿이 알면 쓰고 모르면 무시)
+    # 그 밖의 부가 속성은 attrs로 통째로 넘긴다(템플릿이 알면 쓰고 모르면 무시).
+    # attrs 안에 중첩된 그림(패널·캐릭터·암송 삽화)의 src도 같은 규칙으로 해결한다.
     extra = {k: v for k, v in b.attrs.items() if k not in d}
     if extra:
-        d['attrs'] = extra
+        d['attrs'] = _resolve_nested_assets(doc, extra, warnings)
     return d
+
+
+def _resolve_nested_assets(doc: BookDocument, value, warnings: List[str]):
+    """중첩 dict/list를 훑어 'src'를 가진 dict의 경로를 해결한다(깊이 무관)."""
+    if isinstance(value, dict):
+        out = {k: _resolve_nested_assets(doc, v, warnings) for k, v in value.items()}
+        if 'src' in out and isinstance(out['src'], str) and out['src'] and not out['src'].startswith('/'):
+            try:
+                out['src'] = resolve_asset(doc, out['src'])
+            except AssetError as e:
+                warnings.append(str(e))
+                out['missing'] = True
+                out['src'] = ''
+        return out
+    if isinstance(value, (list, tuple)):
+        return [_resolve_nested_assets(doc, v, warnings) for v in value]
+    return value
 
 
 def template_path(template: str) -> str:

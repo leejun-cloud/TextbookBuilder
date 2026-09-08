@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "theme": "kids-card-purple",
+  "template": "workbook/kids-card",
+  "page_setup": {
+    "size": "custom", "width_mm": 210, "height_mm": 148,
+    "margin_top_mm": 9, "margin_bottom_mm": 9,
+    "margin_inside_mm": 9, "margin_outside_mm": 9,
+    "page_numbers": false
+  },
+  "metadata": {
+    "title": "성령님과 함께 시작된 교회",
+    "grade": "3학년", "lesson_no": 81,
+    "kicker": "다음세대 교리교육 · 초등부",
+    "footer": ""
+  },
+  "assets_root": "assets",
+  "pages": [
+    {
+      "layout": "kids-story",
+      "title": "시작하고 읽어요",
+      "attrs": { "icon": "📖", "note": "성령님과 함께 더 멋진 이야기가 시작돼요!" },
+      "blocks": [
+        { "kind": "callout", "label": "성령님과 함께 시작된 교회",
+          "text": "성령님이 오셔서 사람들을 하나로 모으시고, 교회가 시작되었어요." },
+        { "kind": "question", "label": "여러분에게 ‘교회’는 어떤 곳인가요?",
+          "text": "교회에 가면 어떤 모습이 떠오르나요?  그곳에서 나는 어떤 사람이 되고 싶나요?",
+          "count": 2 },
+        { "kind": "text", "text": "예수님이 하늘로 올려가신 후, 제자들은 예루살렘에 모여 기도하며 기다렸어요." },
+        { "kind": "text", "text": "약속하신 성령님이 오시자, 제자들에게 불같은 것이 나타나고 성령님이 함께하셨어요." },
+        { "kind": "text", "text": "제자들은 성령님의 능력으로 담대하게 예수님을 전하기 시작했어요." },
+        { "kind": "text", "text": "그날 많은 사람들이 예수님을 믿고 세례를 받았고, 이렇게 교회가 시작되었어요." },
+        { "kind": "image", "src": "hero-pentecost.png",
+          "attrs": { "role": "hero", "fit": "cover", "alt": "오순절에 성령님이 오시는 장면" } },
+        { "kind": "keywords", "label": "오늘의 낱말",
+          "items": ["성령님", "교회", "예루살렘", "시작"] }
+      ]
+    },
+    {
+      "layout": "kids-find",
+      "title": "찾고 생각해요",
+      "attrs": { "icon": "🔍", "note": "말씀 속에서 하나님의 마음을 발견해요!" },
+      "blocks": [
+        { "kind": "keywords", "label": "키워드를 찾아 표시해요",
+          "ref": "다음 글에서 오늘의 낱말을 찾아 ○표 해 보세요.",
+          "items": [
+            "제자들이 예루살렘에 모여 기도하고 있을 때, 성령님이 오셨어요.",
+            "불같은 것이 나타나 제자들에게 머물렀고, 제자들은 성령님의 능력으로",
+            "예수님을 전하기 시작했어요. 그날 많은 사람들이 예수님을 믿고 세례를 받았고,",
+            "이렇게 교회가 시작되었어요."
+          ] },
+        { "kind": "fill_blank", "label": "핵심 문장을 완성해요",
+          "ref": "빈칸에 알맞은 말을 써서 오늘의 문장을 완성해 보세요.",
+          "items": ["성령님이 오셔서 사람들을 ", "__32", "로 모으시고,\n", "__32", " 가 시작되었어요."] },
+        { "kind": "choice", "label": "말씀에서 찾아요",
+          "ref": "( ) 안에 들어갈 알맞은 말을 골라 보세요.",
+          "rows": [
+            ["제자들이 모여", "예배", "기도", "여행", "하고 있을 때, 성령님이 오셨어요."],
+            ["성령님은 제자들에게", "바람", "불같은 것", "빛", "의 모습으로 나타나셨어요."],
+            ["그날 많은 사람들이 예수님을", "믿고", "만나고", "궁금해하고", "세례를 받았어요."]
+          ] },
+        { "kind": "callout", "variant": "side", "label": "한 걸음 더 생각해요",
+          "text": "성령님은 제자들뿐 아니라 지금도 우리와 함께하세요. 성령님이 함께하시면 우리는 예수님을 전하고, 다른 사람을 사랑하는 교회가 될 수 있어요." },
+        { "kind": "speech", "label": "친구", "text": "숨은 낱말을 찾아볼까요?" },
+        { "kind": "image", "src": "char-boy.png", "attrs": { "role": "character", "fit": "contain" } }
+      ]
+    },
+    {
+      "layout": "kids-activity",
+      "title": "오늘의 활동",
+      "attrs": { "icon": "🧩", "note": "성령님이 하신 일을 차근차근 정리해 보아요 ♥" },
+      "blocks": [
+        { "kind": "panels", "label": "순서대로 정리해요",
+          "ref": "아래 그림을 보고, 교회가 시작된 과정을 순서대로 번호를 써 보세요.",
+          "attrs": { "panels": [
+            { "src": "seq-p1.png", "caption": "제자들이 예루살렘에 모여 기도했어요.", "fit": "cover" },
+            { "src": "seq-p2.png", "caption": "성령님이 오셔서 제자들에게 불같은 것이 나타났어요.", "fit": "cover" },
+            { "src": "seq-p3.png", "caption": "제자들이 성령님의 능력으로 담대하게 예수님을 전했어요.", "fit": "cover" },
+            { "src": "seq-p4.png", "caption": "많은 사람들이 예수님을 믿고 세례를 받았고, 교회가 시작되었어요.", "fit": "cover" }
+          ] } },
+        { "kind": "match", "label": "이어 보아요",
+          "ref": "사람과 일, 그 결과를 알맞게 이어 보세요.",
+          "head": ["사람", "한 일", "결과"],
+          "rows": [
+            ["제자들", "성령님", "많은 사람들"],
+            ["기도하며 기다렸어요.", "불같은 모습으로 오셨어요.", "예수님을 믿었어요."],
+            ["세례를 받고 교회가 시작되었어요.", "제자들이 담대하게 전했어요.", "사람들이 하나로 모였어요."]
+          ] },
+        { "kind": "speech", "label": "함께 생각해요",
+          "text": "지금 우리에게도 성령님이 함께하신다면, 우리 교회는 어떤 모습일까요?" }
+      ]
+    },
+    {
+      "layout": "kids-close",
+      "title": "정리하고 고백해요",
+      "attrs": { "icon": "💜", "note": "성령님과 함께 나는 교회를 세워 가는 하나님의 아이예요" },
+      "blocks": [
+        { "kind": "reflection", "label": "한 문장으로 정리해요",
+          "text": "오늘 배운 내용을 한 문장으로 써 보세요.", "count": 2 },
+        { "kind": "prayer", "label": "오늘의 기도",
+          "text": "사랑의 성령님,", "items": ["", ""] },
+        { "kind": "memory", "label": "말씀을 기억해요", "ref": "사도행전 2:47",
+          "text": "주께서 구원받는 사람을 날마다 더하게 하시니라",
+          "attrs": { "image": { "src": "church.png", "fit": "cover" } } },
+        { "kind": "reflection", "label": "내가 생각하는 ‘교회’",
+          "text": "여러분에게 ‘교회’는 어떤 곳인가요? 교회의 의미를 내 생각으로 적어 보세요.", "count": 2 },
+        { "kind": "callout", "variant": "confession", "label": "오늘의 고백",
+          "text": "성령님, 저와 함께하셔서 저도 교회를 세워 가는 하나님의 아이로 살아가게 해 주세요!" }
+      ]
+    }
+  ]
+}

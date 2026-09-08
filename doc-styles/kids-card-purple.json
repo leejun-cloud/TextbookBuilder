@@ -1,0 +1,49 @@
+{
+  "name": "kids-card-purple",
+  "description": "카드형 어린이 교재 — 보라 그라디언트 테두리, 둥근 박스, 번호 원, 파스텔 채움. 참조 지면(3학년 81과 4쪽 교재)의 색과 활자 크기를 옮긴 프로필.",
+  "source": "사용자 제공 참조 이미지(초등 3학년 81과 「성령님과 함께 시작된 교회」 4쪽)",
+  "suits": "유년부·초등 저학년 4쪽 반복형 교재. 그림과 활동이 많고 지면을 카드처럼 쓰는 교재",
+  "font": {
+    "main": "Apple SD Gothic Neo",
+    "heading": "Apple SD Gothic Neo",
+    "fallback": "NanumGothic"
+  },
+  "type_scale": {
+    "cover_kicker": 8.5,
+    "cover_title": 15,
+    "cover_sub": 9.5,
+    "cover_badge": 9.5,
+    "banner": 11.5,
+    "subhead": 10.5,
+    "body": 9.2,
+    "quote": 9,
+    "quote_attr": 8.2,
+    "footer": 8
+  },
+  "palette": {
+    "ink": "3F3D56",
+    "heading": "5B3FBF",
+    "accent": "7C5CE0",
+    "banner_text": "FFFFFF",
+    "box_fill": "F1EBFF",
+    "box_border": "C9B8F5",
+    "note_fill": "FFF7DC",
+    "note_border": "F2D68A",
+    "quote_fill": "F4F1FE",
+    "quote_text": "4A3A8C",
+    "quote_attr": "5B3FBF",
+    "table_head_fill": "7C5CE0",
+    "table_head_text": "FFFFFF",
+    "rule": "B9AFD4",
+    "footer": "8B85A3",
+    "cover_kicker": "9A93B8",
+    "cover_title": "5B3FBF",
+    "cover_sub": "7A72A0",
+    "cover_badge": "7C5CE0"
+  },
+  "banner_cycle": ["7C5CE0", "F472B6", "34D399", "FBBF24"],
+  "page": { "margins_cm": { "top": 0.9, "bottom": 0.9, "left": 0.9, "right": 0.9 } },
+  "spacing": { "section_gap_pt": 6, "para_gap_pt": 3.5, "line_height": 1.45 },
+  "decor": { "radius_mm": 3.0, "border_pt": 0.9, "writing_line_mm": 5.5 },
+  "box": { "inset_mm": 3.2 }
+}

@@ -39,7 +39,7 @@
         grid(columns: (1fr, auto),
           text(size: size-of(theme, "footer", 8.5), fill: c(theme, "footer"), m.footer),
           text(size: size-of(theme, "footer", 8.5), fill: c(theme, "footer"),
-               str(counter(page).get().first()) + " / " + str(doc.pages.len())))
+               str(counter(page).get().first()) + " / " + str(counter(page).final().first())))
       })
     },
   )

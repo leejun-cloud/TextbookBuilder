@@ -151,7 +151,7 @@
           text(size: size-of(theme, "footer", 8.5), fill: c(theme, "footer"), s),
           if doc.page.page_numbers {
             text(size: size-of(theme, "footer", 8.5), fill: c(theme, "footer"),
-                 str(counter(page).get().first()) + " / " + str(doc.pages.len()))
+                 str(counter(page).get().first()) + " / " + str(counter(page).final().first()))
           } else { [] })
       })
     },
