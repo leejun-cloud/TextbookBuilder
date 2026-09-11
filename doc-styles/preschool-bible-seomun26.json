@@ -1,0 +1,188 @@
+{
+  "name": "preschool-bible-seomun26",
+  "display_name": "유아부 성경 파스텔 3P · 서문26",
+  "description": "서문26 유아·유치부 성경교재용 3페이지 고정 시각 스타일. 밝은 파스텔, 둥근 카드형 박스, 큰 제목, 장면 중심 성경동화 일러스트, 낮은 정보 밀도를 유지한다.",
+  "source": "유아부 1과 「하나님은 살아 계세요」와 2과 「하나님은 나를 사랑하세요」의 승인 시각 기준",
+  "suits": "유아·유치부 성경공부 교재. 과당 학생용 B5 세로 3페이지, 그림 비중이 높은 반복형 교재",
+  "font": {
+    "main": "Apple SD Gothic Neo",
+    "heading": "Apple SD Gothic Neo",
+    "fallback": "NanumGothic"
+  },
+  "type_scale": {
+    "cover_kicker": 11.0,
+    "cover_title": 24.0,
+    "cover_sub": 11.0,
+    "cover_badge": 16.0,
+    "banner": 14.0,
+    "subhead": 12.0,
+    "body": 10.5,
+    "quote": 10.5,
+    "quote_attr": 9.5,
+    "footer": 9.5
+  },
+  "palette": {
+    "ink": "3B2A25",
+    "heading": "174E91",
+    "accent": "EF5B2A",
+    "pink": "F39BB5",
+    "green": "79B96B",
+    "sky": "A9DCF7",
+    "yellow": "F6D76B",
+    "lavender": "CFC6F5",
+    "banner_text": "FFFFFF",
+    "box_fill": "FFFDF9",
+    "box_border": "D9E9F2",
+    "note_fill": "FFF8D9",
+    "note_border": "F2D88C",
+    "quote_fill": "F8F5FF",
+    "quote_text": "4D3B68",
+    "quote_attr": "6B5AA2",
+    "table_head_fill": "79B96B",
+    "table_head_text": "FFFFFF",
+    "rule": "D9E5D5",
+    "footer": "37824A",
+    "cover_kicker": "8C6A21",
+    "cover_title": "174E91",
+    "cover_sub": "235D8B",
+    "cover_badge": "8C6A21"
+  },
+  "banner_cycle": ["F39BB5", "79B96B", "7DBBE8", "F6D76B", "CFC6F5"],
+  "page": {
+    "size": "B5",
+    "orientation": "portrait",
+    "student_pages_per_lesson": 3,
+    "margins_cm": { "top": 0.7, "bottom": 0.7, "left": 0.7, "right": 0.7 }
+  },
+  "spacing": {
+    "section_gap_pt": 7,
+    "para_gap_pt": 4,
+    "line_height": 1.35
+  },
+  "decor": {
+    "radius_mm": 5.0,
+    "border_pt": 1.0,
+    "writing_line_mm": 6.0,
+    "motifs": ["구름", "새싹", "꽃", "작은 하트", "음표", "작은 새"]
+  },
+  "box": {
+    "inset_mm": 4.0,
+    "max_major_colors_per_page": 4
+  },
+  "visual_contract": {
+    "audience": "유아·유치부",
+    "density": "low",
+    "illustration_ratio": "페이지 면적의 약 40~55%",
+    "tone": ["밝음", "따뜻함", "사랑스러움", "안정감", "예배적 분위기"],
+    "illustration_style": "밝은 파스텔 계열의 어린이 성경동화 일러스트. 부드러운 수채화 질감과 정돈된 디지털 일러스트의 중간 느낌. 둥근 형태, 큰 표정, 친근한 비율, 유아가 그림만 보고 핵심 사건을 이해할 수 있는 명확한 장면 구성.",
+    "character_rules": [
+      "성경 시대의 옷과 배경을 유지하되 지나치게 사실적이거나 무겁게 표현하지 않는다.",
+      "무섭거나 폭력적인 장면은 핵심 의미를 훼손하지 않는 범위에서 부드럽게 완화한다.",
+      "등장인물의 외모와 피부색을 획일화하지 않는다.",
+      "한 장면에는 핵심 사건 하나만 표현한다.",
+      "표정과 몸짓은 유아가 감정을 즉시 읽을 수 있도록 크게 표현한다."
+    ],
+    "consistency_rules": [
+      "과마다 새로운 디자인 시스템을 만들지 않는다.",
+      "가능하면 이전 승인 페이지를 reference image로 사용한다.",
+      "1과는 구조 기준, 2과는 변형 기준으로 삼아 두 과의 공통 시각 DNA를 유지한다.",
+      "제목 위계, 둥근 박스, 파스텔 체계, 페이지별 정보 밀도, 하단 핵심문장 구조를 고정한다."
+    ]
+  },
+  "page_templates": [
+    {
+      "page": 1,
+      "role": "핵심 고백",
+      "fixed_sections": [
+        "과 번호와 과 제목",
+        "1년차 · 해당 활동 유형",
+        "아이의 핵심 고백",
+        "중심 성경",
+        "오늘의 이야기 3문장 이내",
+        "메인 성경 삽화",
+        "하단 핵심문장"
+      ],
+      "layout_rule": "메인 성경 삽화가 페이지 아래쪽 약 40~50%를 차지하고, 상단의 핵심 고백이 첫 시선에 들어오게 한다."
+    },
+    {
+      "page": 2,
+      "role": "말씀 이야기",
+      "fixed_sections": [
+        "말씀 이야기 제목",
+        "성경 이야기 부제",
+        "장면 1: 짧은 소제목 + 1~2문장 + 그림",
+        "장면 2: 짧은 소제목 + 1~2문장 + 그림",
+        "장면 3: 짧은 소제목 + 1~2문장 + 그림",
+        "이야기해 보아요 질문 2개 이하",
+        "하단 이야기 핵심문장"
+      ],
+      "layout_rule": "성경 이야기는 반드시 세 장면으로 나누고 각 장면에는 사건 하나만 배치한다."
+    },
+    {
+      "page": 3,
+      "role": "참여 활동",
+      "fixed_sections": [
+        "과별 참여형 제목",
+        "말리듬 챈트",
+        "나는 이렇게 표현해요 4개 선택 활동",
+        "마침기도 1~2문장",
+        "말씀 이어가기 1개 행동",
+        "유아 활동 메인 삽화",
+        "하단 핵심 고백 반복"
+      ],
+      "allowed_activity_labels": [
+        "말하기",
+        "몸짓하기",
+        "그림 가리키기",
+        "카드 놓기",
+        "만들기",
+        "꾸미기",
+        "찾기",
+        "조용히 듣기"
+      ],
+      "layout_rule": "활동 선택지는 4개를 기본으로 하며 과의 핵심 활동 유형과 직접 연결한다."
+    }
+  ],
+  "content_rules": {
+    "required_source_fields": [
+      "과 번호",
+      "제목",
+      "아이의 핵심 고백",
+      "중심 성경",
+      "성경 이야기",
+      "장면·그림 콘티",
+      "발문",
+      "핵심 활동",
+      "마침기도",
+      "말씀 이어가기"
+    ],
+    "student_hidden_fields": [
+      "교사용 교리 해설",
+      "본문 경계·연결",
+      "흔한 오해",
+      "관찰평가",
+      "민감도",
+      "대체 참여",
+      "음악 사용 기록"
+    ],
+    "text_rules": [
+      "긴 문단을 사용하지 않는다.",
+      "한 박스에는 핵심 문장 1~3개만 둔다.",
+      "유아가 이해하기 어려운 교리 용어를 학생용 지면에 직접 노출하지 않는다.",
+      "질문은 한 페이지에 2개를 넘기지 않는다.",
+      "큰 목소리나 긴 문장 암송을 강요하는 표현을 쓰지 않는다."
+    ]
+  },
+  "image_prompt_base": "B5 vertical Korean preschool Bible workbook page, bright pastel sky, soft watercolor plus clean digital illustration, rounded card boxes, large friendly rounded Korean typography, low information density, warm Sunday-school mood, expressive child-friendly Bible characters, one clear event per scene, gentle pastoral decorative motifs, consistent series style. Student-facing only; no teacher commentary, no dense paragraphs, no scary imagery, no unrelated decorative clutter.",
+  "evaluation": {
+    "checklist": [
+      "1·2과와 같은 교재 시리즈로 즉시 인식되는가",
+      "그림체와 제목 위계가 동일한가",
+      "페이지 1·2·3의 역할이 유지되는가",
+      "유아에게 글자가 과도하지 않은가",
+      "한 장면에 여러 사건이 섞이지 않았는가",
+      "핵심 고백이 세 페이지에서 반복적으로 회수되는가",
+      "교사용 문장이 학생용에 노출되지 않았는가"
+    ]
+  }
+}
