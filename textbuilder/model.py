@@ -14,6 +14,7 @@
 from __future__ import annotations
 
 import json
+import math
 from dataclasses import dataclass, field, asdict
 from typing import Any, Dict, List, Optional
 
@@ -193,7 +194,8 @@ class BookDocument:
     def dimensions_mm(self):
         if self.page_setup.size == 'custom':
             w, h = self.page_setup.width_mm, self.page_setup.height_mm
-            if not w or not h:
+            if any(isinstance(v, bool) or not isinstance(v, (int, float)) or
+                   not math.isfinite(v) or v <= 0 for v in (w, h)):
                 raise ValueError('page_setup.size가 custom이면 width_mm/height_mm가 필요하다')
             return float(w), float(h)
         if self.page_setup.size not in PAGE_SIZES_MM:
@@ -212,6 +214,12 @@ class BookDocument:
             self.dimensions_mm()
         except ValueError as e:
             problems.append(str(e))
+        for name in ('margin_top_mm', 'margin_bottom_mm', 'margin_inside_mm',
+                     'margin_outside_mm', 'gutter_mm', 'bleed_mm'):
+            value = getattr(self.page_setup, name)
+            if (isinstance(value, bool) or not isinstance(value, (int, float)) or
+                    not math.isfinite(value) or value < 0):
+                problems.append(f'page_setup.{name}은 0 이상의 유한한 수여야 한다')
         for i, page in enumerate(self.pages, 1):
             if not page.blocks:
                 problems.append(f'{i}쪽에 블록이 없다')
@@ -221,3 +229,4 @@ class BookDocument:
                 if b.kind == 'table' and not (b.head or b.rows):
                     problems.append(f'{i}쪽 table 블록이 비었다')
         return problems
+

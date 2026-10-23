@@ -1,0 +1,4 @@
+interface:
+  display_name: "교재 인쇄 검증"
+  short_description: "교재 PDF와 오려 붙이기 조각을 검사하고 증거를 남깁니다"
+  default_prompt: "Use $validate-print to verify the final textbook PDF and cut-and-paste activity bundle."

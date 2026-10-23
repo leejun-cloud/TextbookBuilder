@@ -60,5 +60,10 @@ evaluator의 보고서를 `projects/<project-id>/lessons/NN/evaluation.md`로 �
 
 ## 5. 80점 규칙 적용
 
+책 출판·오려 붙이기·최종 PDF 요청이면 원고 점수와 별도로 `/validate-print`를 수행한다.
+이 평가의 입력에 있는 이미지 프롬프트·페이지 원고는 실제 PDF나 조립 검사의 증거가 아니다.
+조각 불일치·누락 이미지·최종 인쇄 검증 실패를 80점 이상으로 상쇄하지 않는다.
+
 - **총점 < 80점**: `subagent_type: lesson-updater`를 호출해 evaluation.md의 수정 필요 사항을 반영하여 draft.md/worksheet.md/teacher-notes.md를 수정하게 한다. 시각 스타일이 적용된 경우 student-pages.md와 image-prompts.md도 함께 수정한다. 수정 후 2~3단계를 다시 수행해 재평가한다. 이 사이클은 최대 3회까지만 반복한다. 3회 후에도 80점 미만이면 더 이상 자동 반복하지 말고, 현재 점수와 남은 문제점을 있는 그대로 사용자에게 보고하고 지시를 기다린다.
 - **총점 ≥ 80점**: 자동으로 draft를 수정하지 않는다. 점수 요약과 evaluator가 제안한 개선 사항을 번호를 매긴 리스트로 사용자에게 제시하고, 어떤 항목을 적용할지 또는 이대로 승인할지 사용자의 지시를 기다린다.
+

@@ -42,6 +42,8 @@ class TypstRenderer(Renderer):
 
     def render(self, doc: BookDocument, options: RenderOptions) -> RenderResult:
         t0 = time.time()
+        if options.final and ((options.fmt or 'pdf').lower() != 'pdf' or options.pages):
+            return RenderResult(ok=False, errors=['최종 출력은 전체 페이지 PDF만 허용한다'])
         ok_exe, why = self.available()
         if not ok_exe:
             return RenderResult(ok=False, errors=[why])
@@ -52,6 +54,8 @@ class TypstRenderer(Renderer):
         except Exception as e:
             return RenderResult(ok=False, errors=[f'{type(e).__name__}: {e}'], warnings=problems)
         warnings = list(warnings) + problems
+        if options.final and warnings:
+            return RenderResult(ok=False, errors=['최종 출력 사전검증 실패: ' + w for w in warnings])
 
         fmt = (options.fmt or 'pdf').lower()
         if fmt not in ('pdf', 'png', 'svg'):
@@ -75,6 +79,10 @@ class TypstRenderer(Renderer):
         with open(src_path, 'w', encoding='utf-8') as f:
             f.write(src)
 
+        final_path = out_path
+        final_tmp = tempfile.TemporaryDirectory(prefix='final-', dir=os.path.dirname(os.path.abspath(out_path))) if options.final else None
+        if final_tmp:
+            out_path = os.path.join(final_tmp.name, 'candidate.pdf')
         cmd = [self.exe, 'compile', '--root', REPO_ROOT, '--format', fmt]
         if fmt == 'png':
             cmd += ['--ppi', str(options.ppi)]
@@ -89,25 +97,59 @@ class TypstRenderer(Renderer):
         try:
             r = subprocess.run(cmd, capture_output=True, text=True, timeout=options.timeout_sec)
         except subprocess.TimeoutExpired:
+            if final_tmp:
+                final_tmp.cleanup()
             return RenderResult(ok=False, source_path=src_path, warnings=warnings,
                                 errors=[f'typst 컴파일이 {options.timeout_sec}초를 넘겨 중단했다. '
                                         f'문서가 너무 크거나 템플릿이 무한 반복일 수 있다.'])
+        except OSError as e:
+            if final_tmp:
+                final_tmp.cleanup()
+            return RenderResult(ok=False, source_path=src_path, errors=[f'typst 실행 실패: {e}'])
         log = (r.stdout or '') + (r.stderr or '')
 
         if r.returncode != 0:
+            if final_tmp:
+                final_tmp.cleanup()
             return RenderResult(ok=False, source_path=src_path, log=log, warnings=warnings,
                                 errors=_friendly_errors(log, src_path))
 
         outputs = _collect_outputs(out_path)
-        if not outputs:
+        if not outputs or any(os.path.getsize(p) == 0 for p in outputs):
+            if final_tmp:
+                final_tmp.cleanup()
             return RenderResult(ok=False, source_path=src_path, log=log, warnings=warnings,
-                                errors=['typst가 성공했다고 보고했으나 산출 파일이 없다'])
+                                errors=['typst가 성공했다고 보고했으나 비어 있거나 없는 산출 파일이다'])
+        actual_pages = None
+        if options.final:
+            from ..print_qc import audit_pdf, write_report
+            try:
+                bleed = doc.page_setup.bleed_mm * 2
+                expected_size = tuple(v + bleed for v in doc.dimensions_mm())
+                expected_pages = options.extra.get('expected_pages')
+                if expected_pages is None:
+                    expected_pages = len(doc.pages) + int(doc.template == 'book/standard' and bool(doc.metadata.title))
+                report = audit_pdf(outputs[0], expected_size_mm=expected_size,
+                                   expected_pages=expected_pages,
+                                   min_image_dpi=options.extra.get('min_image_dpi', 150))
+                write_report(final_path + '.qc.json', report)
+                if report['status'] != 'machine_pass':
+                    final_tmp.cleanup()
+                    return RenderResult(ok=False, errors=report['errors'], warnings=warnings,
+                                        source_path=src_path, meta={'qc_report': final_path + '.qc.json'})
+                actual_pages = report['page_count']
+                os.replace(outputs[0], final_path)
+                outputs = [final_path]
+            except Exception as e:
+                return RenderResult(ok=False, errors=[f'최종 PDF 검수 실패: {e}'], source_path=src_path)
+            finally:
+                final_tmp.cleanup()
         if tmpdir and not options.keep_source:
             shutil.rmtree(tmpdir, ignore_errors=True)
             src_path = ''
         return RenderResult(ok=True, outputs=outputs, warnings=warnings, log=log,
                             source_path=src_path,
-                            meta={'pages': len(doc.pages), 'duration_ms': int((time.time() - t0) * 1000),
+                            meta={'pages': actual_pages if actual_pages is not None else len(doc.pages), 'duration_ms': int((time.time() - t0) * 1000),
                                   'template': doc.template, 'theme': doc.theme, 'format': fmt})
 
 
@@ -145,3 +187,4 @@ def _friendly_errors(log: str, src_path: str) -> List[str]:
             seen.add(e)
             uniq.append(e)
     return uniq[:8]
+
