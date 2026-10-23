@@ -48,6 +48,9 @@ def main():
     ap.add_argument('--page-size', default='', help='A4|A5|B5|210x210|6x9in')
     ap.add_argument('--font', default='', help='본문 폰트 강제 지정')
     ap.add_argument('--preview', action='store_true', help='PNG 미리보기')
+    ap.add_argument('--final', action='store_true', help='최종 PDF: 경고 차단 + 실제 PDF 사후검사')
+    ap.add_argument('--min-image-dpi', type=float, default=150, help='최종 PDF 이미지 최소 해상도')
+    ap.add_argument('--expected-pages', type=int, help='최종 PDF의 예상 실제 쪽수 (표지 포함)')
     ap.add_argument('--pages', default='', help='렌더할 쪽 (예: 1,3)')
     ap.add_argument('--ppi', type=int, default=144)
     ap.add_argument('--keep-source', action='store_true', help='생성된 .typ 보존')
@@ -71,6 +74,8 @@ def main():
 
     if not a.input:
         ap.error('입력 파일이 필요하다 (또는 --list)')
+    if a.final and (a.preview or a.pages or a.renderer != 'typst' or a.fallback):
+        ap.error('--final은 typst 전체 PDF 출력에만 사용할 수 있다 (미리보기·부분출력·fallback 불가)')
 
     kw = {}
     if a.theme:
@@ -101,6 +106,8 @@ def main():
     problems = doc.validate()
     for p in problems:
         print(f'  점검 {p}', file=sys.stderr)
+    if a.final and problems:
+        return 1
 
     renderer, notes = resolve_renderer(a.renderer, a.fallback or a.renderer)
     for n in notes:
@@ -110,6 +117,7 @@ def main():
                                    os.path.splitext(a.out)[1].lstrip('.').lower() or 'pdf')
     opts = RenderOptions(
         out_path=a.out, fmt=fmt, ppi=a.ppi, keep_source=a.keep_source, timeout_sec=a.timeout,
+        final=a.final, extra={'min_image_dpi': a.min_image_dpi, 'expected_pages': a.expected_pages},
         pages=[int(x) for x in a.pages.split(',') if x.strip()] if a.pages else None)
 
     res = renderer.preview(doc, opts) if a.preview else renderer.render(doc, opts)
@@ -135,3 +143,4 @@ def main():
 
 if __name__ == '__main__':
     sys.exit(main())
+

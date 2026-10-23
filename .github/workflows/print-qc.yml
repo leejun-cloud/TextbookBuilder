@@ -1,0 +1,17 @@
+name: Textbook print and activity checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  print-qc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements-print.txt
+      - run: python scripts/test_print_qc.py -v
+      - run: python scripts/build_cut_paste.py sample-projects/cut-paste/activity.json -o build/ci/book.pdf
+      - run: python scripts/qc_print.py build/ci/book.qc.json --verify-report --activity-spec sample-projects/cut-paste/activity.json

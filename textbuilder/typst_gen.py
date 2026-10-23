@@ -16,6 +16,9 @@
 from __future__ import annotations
 
 import os
+import hashlib
+import math
+import re
 from typing import Any, Dict, List
 
 from .model import BookDocument, Block
@@ -71,6 +74,57 @@ class AssetError(Exception):
     pass
 
 
+def cropped_asset(src: str, crop) -> str:
+    """비율 [x,y,w,h]를 실제 PNG로 잘라 모든 템플릿에서 같은 결과를 쓴다."""
+    if (not isinstance(crop, (list, tuple)) or len(crop) != 4 or
+            any(isinstance(v, bool) or not isinstance(v, (int, float)) or
+                not math.isfinite(v) for v in crop)):
+        raise AssetError('crop은 유한한 비율 [x,y,w,h] 4개여야 한다')
+    x, y, w, h = crop
+    if x < 0 or y < 0 or w <= 0 or h <= 0 or x + w > 1 or y + h > 1:
+        raise AssetError('crop이 이미지 경계(0~1)를 벗어났다')
+    try:
+        from PIL import Image, ImageOps
+    except ImportError as e:
+        raise AssetError('crop 처리에는 Pillow가 필요하다: pip install Pillow') from e
+    path = os.path.join(REPO_ROOT, src.lstrip('/'))
+    try:
+        with open(path, 'rb') as stream:
+            digest = hashlib.sha256(stream.read() + repr(list(crop)).encode()).hexdigest()
+        folder = os.path.join(REPO_ROOT, 'build', '.image-crops')
+        os.makedirs(folder, exist_ok=True)
+        out = os.path.join(folder, digest + '.png')
+        if not os.path.isfile(out):
+            with Image.open(path) as original:
+                image = ImageOps.exif_transpose(original)
+                iw, ih = image.size
+                box = (round(x * iw), round(y * ih), round((x + w) * iw), round((y + h) * ih))
+                if box[0] >= box[2] or box[1] >= box[3]:
+                    raise AssetError('crop 영역이 1픽셀보다 작다')
+                image.crop(box).save(out, 'PNG')
+        return '/' + os.path.relpath(out, REPO_ROOT).replace(os.sep, '/')
+    except (OSError, ValueError) as e:
+        raise AssetError(f'crop 이미지를 읽거나 저장하지 못했다: {e}') from e
+
+
+def image_dimension(value, axis: str) -> Dict[str, float]:
+    """이미지 길이를 명시적인 mm/percent 필드로 정규화한다."""
+    if isinstance(value, bool):
+        raise AssetError(f'{axis} 길이에 boolean을 쓸 수 없다')
+    if isinstance(value, (int, float)):
+        number, unit = value, 'mm'
+    else:
+        match = re.fullmatch(r'\s*(\d+(?:\.\d+)?)\s*(mm|cm|in|pt|%)\s*', str(value))
+        if not match:
+            raise AssetError(f'{axis} 길이는 양수 mm/cm/in/pt/%여야 한다: {value}')
+        number, unit = float(match[1]), match[2]
+    if not math.isfinite(number) or number <= 0:
+        raise AssetError(f'{axis} 길이는 유한한 양수여야 한다')
+    if unit == '%':
+        return {axis + '_percent': number}
+    return {axis + '_mm': number * {'mm': 1, 'cm': 10, 'in': 25.4, 'pt': 25.4 / 72}[unit]}
+
+
 def resolve_asset(doc: BookDocument, src: str) -> str:
     """이미지 경로를 typst --root 기준 절대경로(/로 시작)로 바꾼다."""
     if not src:
@@ -120,6 +174,11 @@ def block_data(doc: BookDocument, b: Block, warnings: List[str]) -> Dict[str, An
     if b.kind == 'image':
         try:
             d['src'] = resolve_asset(doc, b.src)
+            if 'crop' in b.attrs:
+                d['src'] = cropped_asset(d['src'], b.attrs['crop'])
+            for axis in ('width', 'height'):
+                if axis in b.attrs:
+                    d.update(image_dimension(b.attrs[axis], axis))
         except AssetError as e:
             warnings.append(str(e))
             d['missing'] = True
@@ -146,6 +205,11 @@ def _resolve_nested_assets(doc: BookDocument, value, warnings: List[str]):
         if 'src' in out and isinstance(out['src'], str) and out['src'] and not out['src'].startswith('/'):
             try:
                 out['src'] = resolve_asset(doc, out['src'])
+                if 'crop' in out:
+                    out['src'] = cropped_asset(out['src'], out['crop'])
+                for axis in ('width', 'height'):
+                    if axis in out:
+                        out.update(image_dimension(out[axis], axis))
             except AssetError as e:
                 warnings.append(str(e))
                 out['missing'] = True
@@ -173,7 +237,7 @@ def template_path(template: str) -> str:
 def document_data(doc: BookDocument) -> tuple[Dict[str, Any], List[str]]:
     warnings: List[str] = list(doc.warnings)
     profile = load_profile(doc.theme)
-    theme = to_typst_theme(profile)
+    theme = to_typst_theme(profile, font_override=str(doc.metadata.extra.get('font_override', '')))
     fw, _usable = check_fonts(theme)
     warnings.extend(fw)
 
@@ -230,3 +294,4 @@ def generate(doc: BookDocument) -> tuple[str, List[str]]:
         '',
     ])
     return src, warnings
+

@@ -24,6 +24,7 @@ class RenderOptions:
     ppi: int = 144                   # png 프리뷰 해상도
     keep_source: bool = False        # 생성된 .typ 등 중간 산출물 보존
     timeout_sec: int = 120
+    final: bool = False              # 최종 PDF: 사전/사후 검증 실패 시 출력 차단
     extra: Dict[str, Any] = field(default_factory=dict)
 
 
@@ -120,3 +121,4 @@ def _install_builtin():
 
 
 _install_builtin()
+

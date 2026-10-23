@@ -37,8 +37,12 @@ def load(path: str, **kw) -> BookDocument:
                 doc.assets_root = os.path.dirname(os.path.abspath(path))
             for k, v in kw.items():
                 if v:
-                    setattr(doc, k, v) if k in ('theme', 'template') else None
+                    if k in ('theme', 'template'):
+                        setattr(doc, k, v)
+                    elif k == 'page_size':
+                        doc.page_setup.size = v
             return doc
         from .adapters.lesson_json import parse as parse_json
         return parse_json(path, **kw)
     raise ValueError(f'지원하지 않는 입력 형식: {ext} (.md 또는 .json)')
+

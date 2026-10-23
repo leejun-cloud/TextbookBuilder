@@ -49,8 +49,13 @@
 // 캡션이 있으면 아래에 붙인다
 #let illustration-with-caption(theme, b, width: 100%, height: auto, radius: none) = {
   let cap = get(b, "caption", get(b, "text", ""))
-  block(width: width, breakable: false, {
-    illustration(theme, b, width: 100%, height: height, radius: radius)
+  // crop은 typst_gen.py에서 실제 자산에 적용한다. 지정한 물리 크기를 보존한다.
+  let w = if has(b, "width_mm") { b.width_mm * 1mm }
+          else if has(b, "width_percent") { b.width_percent * 1% } else { width }
+  let h = if has(b, "height_mm") { b.height_mm * 1mm }
+          else if has(b, "height_percent") { b.height_percent * 1% } else { height }
+  block(width: w, breakable: false, {
+    illustration(theme, b, width: 100%, height: h, radius: radius)
     if cap != "" {
       v(1.2mm)
       align(center, text(size: size-of(theme, "quote_attr", 9), fill: c(theme, "footer"), cap))
@@ -77,3 +82,4 @@
   gutter: gap,
   ..blocks.map(b => illustration-with-caption(theme, b, width: 100%, height: 45mm, radius: 2mm)),
 )
+
