@@ -19,17 +19,49 @@ WORDS = {
 }
 
 
-def _font(path, texts):
-    from reportlab.pdfbase import pdfmetrics
-    from reportlab.pdfbase.ttfonts import TTFont
-    candidates = [path] if path else [
+def _font_candidates():
+    """쓸 수 있는 글꼴 후보. 앞에 있을수록 먼저 시도한다.
+
+    배포판마다 파일 이름이 달라서 고정 목록만으로는 놓친다.
+    예: Homebrew의 font-nanum-gothic 은 NanumGothic.ttf 가 아니라
+    NanumGothic-Regular.ttf 로 깔린다. 그래서 사용자 글꼴 폴더는
+    이름을 훑어서 한글 글꼴을 찾아 덧붙인다.
+    """
+    fixed=[
+        str(Path.home()/'Library/Fonts/NanumGothic-Regular.ttf'),
         str(Path.home()/'Library/Fonts/NanumGothic.ttf'),
+        '/Library/Fonts/NanumGothic-Regular.ttf',
         '/Library/Fonts/NanumGothic.ttf',
         '/System/Library/Fonts/AppleSDGothicNeo.ttc',
         '/usr/share/fonts/truetype/nanum/NanumGothic.ttf',
         '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
         'C:/Windows/Fonts/malgun.ttf',
     ]
+    found=[]
+    for folder in (Path.home()/'Library/Fonts', Path('/Library/Fonts'),
+                   Path('/usr/share/fonts'), Path('/usr/local/share/fonts')):
+        if not folder.is_dir():
+            continue
+        try:
+            entries=sorted(folder.rglob('*.tt[fc]'))
+        except OSError:
+            continue
+        for f in entries:
+            low=f.name.lower()
+            if any(k in low for k in ('nanum','pretendard','notosanskr','noto_sans_kr',
+                                      'malgun','applesdgothic','spoqa','gothic')):
+                found.append(str(f))
+    seen=set(); out=[]
+    for c in fixed+found:
+        if c not in seen:
+            seen.add(c); out.append(c)
+    return out
+
+
+def _font(path, texts):
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
+    candidates = [path] if path else _font_candidates()
     required={ord(ch) for t in texts for ch in t if not ch.isspace()}
     for candidate in candidates:
         if not candidate or not Path(candidate).is_file():
